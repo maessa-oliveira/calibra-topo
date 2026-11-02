@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block titulo %}Calibra Topo{% endblock %}</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 3 L28 28 H4Z' fill='none' stroke='%23155e75' stroke-width='3'/><circle cx='16' cy='19' r='3' fill='%23155e75'/></svg>">
+<link rel="stylesheet" href="/static/estilo.css">
+</head>
+<body>
+<header class="topo">
+  <a class="marca" href="/">◭ Calibra Topo</a>
+  {% if usuario %}
+  <nav>
+    <span class="quem">{{ usuario.nome }}</span>
+    <form method="post" action="/sair"><input type="hidden" name="csrf" value="{{ csrf }}"><button class="link">Sair</button></form>
+  </nav>
+  {% endif %}
+</header>
+<main>{% block conteudo %}{% endblock %}</main>
+<footer class="rodape">Calibra Topo — versão comunitária (MIT) · <a href="https://github.com/maessa-oliveira/calibra-topo">código-fonte</a></footer>
+</body>
+</html>

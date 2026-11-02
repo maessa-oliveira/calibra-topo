@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="cabecalho">
+  <h1>Equipamentos</h1>
+  <div class="acoes">
+    <a class="botao" href="/exportar.csv">Exportar CSV</a>
+    <a class="botao primario" href="/equipamentos/novo">+ Novo equipamento</a>
+  </div>
+</div>
+
+<div class="kpis">
+  {% for chave, rotulo, classe in [('', 'Total', 'total'), ('VENCIDO', 'Vencidos', 'vencido'), ('VENCENDO', 'Vencem em ' ~ DIAS_AVISO ~ ' dias', 'vencendo'), ('EM_DIA', 'Em dia', 'em-dia'), ('SEM_REGISTRO', 'Sem registro', 'sem')] %}
+  <a class="kpi {{ classe }} {% if filtro == chave %}ativo{% endif %}" href="/?filtro={{ chave }}">
+    <strong>{% if chave %}{{ contagem[Situacao[chave]] }}{% else %}{{ total }}{% endif %}</strong>
+    <span>{{ rotulo }}</span>
+  </a>
+  {% endfor %}
+</div>
+
+<form class="busca" method="get">
+  <input type="hidden" name="filtro" value="{{ filtro }}">
+  <input name="busca" value="{{ busca }}" placeholder="Buscar por marca, modelo, nº de série, patrimônio ou responsável">
+</form>
+
+{% if equipamentos %}
+<div class="tabela-rolagem">
+<table>
+  <thead><tr><th>Situação</th><th>Equipamento</th><th>Nº série</th><th>Responsável</th><th>Última aferição</th><th>Vencimento</th><th></th></tr></thead>
+  <tbody>
+  {% for e in equipamentos %}
+    {% set s = e.situacao(hoje) %}{% set d = e.dias_para_vencer(hoje) %}
+    <tr>
+      <td><span class="selo {{ s.name|lower }}">{{ s.value }}</span>
+        {% if d is not none %}<small class="dias">{% if d < 0 %}há {{ -d }} dias{% elif d == 0 %}hoje{% else %}em {{ d }} dias{% endif %}</small>{% endif %}</td>
+      <td><strong>{{ e.marca }} {{ e.modelo }}</strong><br><small>{{ e.tipo.value }}{% if e.patrimonio %} · pat. {{ e.patrimonio }}{% endif %}</small></td>
+      <td>{{ e.numero_serie }}</td>
+      <td>{{ e.responsavel or '—' }}</td>
+      <td>{{ e.ultima_afericao|data }}</td>
+      <td>{{ e.vencimento|data }}</td>
+      <td><a href="/equipamentos/{{ e.id }}">Editar</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p class="vazio">{% if total %}Nenhum equipamento neste filtro.{% else %}Nenhum equipamento cadastrado ainda. <a href="/equipamentos/novo">Cadastre o primeiro</a>.{% endif %}</p>
+{% endif %}
+{% endblock %}

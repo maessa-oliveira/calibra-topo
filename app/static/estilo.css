@@ -1,0 +1,52 @@
+:root { --azul: #155e75; --texto: #1f2933; --suave: #61707d; --borda: #dde3e8; --fundo: #f4f6f8;
+  --vencido: #b42318; --vencendo: #b54708; --ok: #067647; --sem: #61707d; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--texto); background: var(--fundo); }
+a { color: var(--azul); }
+.topo { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #fff; border-bottom: 1px solid var(--borda); }
+.marca { font-weight: 700; font-size: 18px; text-decoration: none; }
+.topo nav { display: flex; gap: 12px; align-items: center; }
+.quem { color: var(--suave); }
+main { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+.rodape { text-align: center; color: var(--suave); font-size: 13px; padding: 24px 16px; }
+h1 { margin: 0 0 12px; font-size: 24px; }
+.sub, .nota { color: var(--suave); }
+.cartao { background: #fff; border: 1px solid var(--borda); border-radius: 12px; padding: 24px; }
+.estreito { max-width: 420px; margin: 40px auto; }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--suave); margin-bottom: 12px; }
+input, select, textarea { font: inherit; color: var(--texto); padding: 9px 11px; border: 1px solid var(--borda); border-radius: 8px; background: #fff; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--azul); outline-offset: -1px; }
+button, .botao { font: inherit; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--borda); background: #fff; color: var(--texto); cursor: pointer; text-decoration: none; display: inline-block; }
+.primario { background: var(--azul); border-color: var(--azul); color: #fff; }
+.perigo { color: var(--vencido); border-color: #f4c7c3; }
+button.link { border: 0; background: none; color: var(--azul); padding: 0; }
+.erro { background: #fef3f2; color: var(--vencido); border: 1px solid #fecdca; padding: 8px 12px; border-radius: 8px; }
+.cabecalho { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.acoes { display: flex; gap: 8px; justify-content: flex-end; }
+.kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 16px; }
+.kpi { background: #fff; border: 1px solid var(--borda); border-left-width: 4px; border-radius: 10px; padding: 12px 14px; text-decoration: none; color: var(--texto); }
+.kpi strong { display: block; font-size: 26px; font-variant-numeric: tabular-nums; }
+.kpi span { color: var(--suave); font-size: 13px; }
+.kpi.ativo { box-shadow: 0 0 0 2px var(--azul); }
+.kpi.total { border-left-color: var(--azul); } .kpi.vencido { border-left-color: var(--vencido); }
+.kpi.vencendo { border-left-color: var(--vencendo); } .kpi.em-dia { border-left-color: var(--ok); } .kpi.sem { border-left-color: var(--sem); }
+.busca input { width: 100%; margin-bottom: 12px; }
+.tabela-rolagem { overflow-x: auto; background: #fff; border: 1px solid var(--borda); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--borda); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: var(--suave); background: #fafbfc; }
+tr:last-child td { border-bottom: 0; }
+td small { color: var(--suave); }
+.selo { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+.selo.vencido { background: #fef3f2; color: var(--vencido); } .selo.vencendo { background: #fffaeb; color: var(--vencendo); }
+.selo.em_dia { background: #ecfdf3; color: var(--ok); } .selo.sem_registro { background: #f2f4f7; color: var(--sem); }
+.dias { display: block; }
+.vazio { background: #fff; border: 1px dashed var(--borda); border-radius: 12px; padding: 32px; text-align: center; color: var(--suave); }
+.grade { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 16px; }
+.largo { grid-column: 1 / -1; }
+.excluir { margin-top: 16px; border-top: 1px solid var(--borda); padding-top: 16px; }
+@media (max-width: 760px) {
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .grade { grid-template-columns: 1fr; }
+  .topo { padding: 12px 16px; }
+}

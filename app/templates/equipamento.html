@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block conteudo %}
+{% set v = valores or {} %}
+{% macro val(campo, padrao='') %}{{ v.get(campo, (eq[campo] if eq and eq[campo] is not none else padrao)) }}{% endmacro %}
+<section class="cartao">
+  <h1>{% if eq %}Editar equipamento{% else %}Novo equipamento{% endif %}</h1>
+  {% if erro %}<p class="erro" role="alert">{{ erro }}</p>{% endif %}
+  <form method="post" class="grade">
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <label>Tipo
+      <select name="tipo">
+        {% for t in tipos %}<option value="{{ t.value }}" {% if (v and v.get('tipo') == t.value) or (not v and eq and eq.tipo == t) %}selected{% endif %}>{{ t.value }}</option>{% endfor %}
+      </select></label>
+    <label>Marca <input name="marca" value="{{ val('marca') }}" required></label>
+    <label>Modelo <input name="modelo" value="{{ val('modelo') }}" required></label>
+    <label>Nº de série <input name="numero_serie" value="{{ val('numero_serie') }}" required></label>
+    <label>Patrimônio <input name="patrimonio" value="{{ val('patrimonio') }}"></label>
+    <label>Responsável <input name="responsavel" value="{{ val('responsavel') }}"></label>
+    <label>Última aferição <input type="date" name="ultima_afericao" value="{{ val('ultima_afericao') }}"></label>
+    <label>Validade (meses) <input type="number" name="validade_meses" min="1" max="60" value="{{ val('validade_meses', 12) }}"></label>
+    <label>Laboratório <input name="laboratorio" value="{{ val('laboratorio') }}"></label>
+    <label>Nº do certificado <input name="certificado" value="{{ val('certificado') }}"></label>
+    <label class="largo">Observações <textarea name="observacoes" rows="3">{{ val('observacoes') }}</textarea></label>
+    <div class="largo acoes">
+      <a class="botao" href="/">Cancelar</a>
+      <button class="primario">Salvar</button>
+    </div>
+  </form>
+  {% if eq %}
+  <form method="post" action="/equipamentos/{{ eq.id }}/excluir" class="excluir" onsubmit="return confirm('Excluir este equipamento?')">
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <button class="perigo">Excluir equipamento</button>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}
