@@ -75,3 +75,9 @@ O GitHub Actions roda lint e testes em Python 3.11–3.13 e sobe o container Doc
 
 **Maessa Oliveira** — agrimensora e projetista, graduanda em Engenharia de Software.
 [LinkedIn](https://www.linkedin.com/in/maessa-oliveira/) · Licença [MIT](LICENSE).
+
+## English
+
+**Calibration tracking for surveying equipment** (total stations, GNSS receivers, levels):
+due/overdue alerts, certificate history, CSV export, per-user data isolation, session auth with CSRF
+protection. Built with FastAPI, SQLAlchemy 2 and Jinja; automated tests and Docker image included.
